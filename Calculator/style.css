@@ -1,0 +1,69 @@
+#calcContain {
+    width:300px;
+    height:500px;
+    border:2px solid black;
+}
+
+#display
+{
+    border:2px solid black;
+    margin:20px;
+    width:85%;
+    height:50px;
+}
+
+#input 
+{
+    border:none;
+    width:95%;
+    height:90%;
+    border:none;
+    background:none;
+    font-size:50px;
+    text-align:right;
+}
+
+.button
+{
+    font-size:50px;
+    width:60px;
+}
+
+.number
+{
+    font-size:50px;
+    width:50px;
+    margin:5px;
+}
+#buttons
+{
+    width:90%;
+    margin: 10px 20px;
+}
+
+#input:focus
+{
+    background: white;
+    border: 1px solid white;
+    outline:none;
+}
+#numbers
+{
+    margin:10px 30px;
+    display:flex;
+ flex-wrap:wrap;
+    width:90%;
+}
+
+#equals {
+    width:110px;
+    margin:5px;
+}
+#clear 
+{
+    margin: 10px 30px;
+    width:80%;
+    height:50px;
+    font-size:50px;
+    line-height:100%;
+}
