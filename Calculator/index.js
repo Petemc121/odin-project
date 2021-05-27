@@ -54,9 +54,7 @@ let operate = (operator, x, y) =>
         
         }
  
-    console.log(numeric1);
-    console.log(numeric2);
-    console.log(operator);
+    
 
 
     if (operator == "+")
