@@ -39,7 +39,7 @@ let multiply = (x, y) =>
 let operate = (operator, x, y) =>
 {
 
-    if (x !== "" || y !== "")
+    if (x !== "" && y !== "")
     {
 
     parseInt(x, 10);
@@ -66,36 +66,47 @@ let operate = (operator, x, y) =>
         return divide(x,y);
     }
 }
-
-return input.value;
 }
 
 
 for (let i = 0; i < numbers.length; i++)
-{   
+    {   
     numbers[i].addEventListener('click', () => {
-       
         input.value += numbers[i].innerHTML;
-        data.num1 = input.value;
-        console.log(data.num1);
-    });
+            
+        });
 
-}
+    }
+
+    for (let i = 0; i < buttons.length; i++)
+    {  
+            buttons[i].addEventListener('click', () => {
+
+                data.operator = buttons[i].innerHTML;
+            
+                if (data.num1 == "")
+            {
+                data.num1 = input.value;
+                input.value = "";
+            } else
+            {
+                data.num2 = input.value;
+                input.value = "";
+                input.value = operate(data.operator, data.num1, data.num2);
+                data.num1 = input.value;
+                data.num2 = ""
+            }
+            
+            // input.value = operate(data.opterator, data.num1, data.num2);
+            });
+    }
 
 
 
 
-for (let i = 0; i < buttons.length; i++)
-{  
-    buttons[i].addEventListener('click', () => {
-    data.operator = buttons[i].innerHTML;
-    data.num1 = input.value;
-    // input.value = operate(data.opterator, data.num1, data.num2);
-    });
-}
 
 clear.addEventListener('click', () => {
     input.value = ""
     x = "";
     y = "";
-})
+});
