@@ -54,10 +54,7 @@ let operate = (operator, x, y) =>
         
         }
  
-    
-
-
-    if (operator == "+")
+ if (operator == "+")
     {
         return add(numeric1,numeric2);
     }
