@@ -1,0 +1,53 @@
+#addBook {
+  margin-left: 50px;
+  margin-top: 30px;
+  font-size: 30px;
+  border: 3px solid lightblue;
+  border-radius: 3px;
+  background-color: blue;
+  color: white;
+  z-index: -1;
+}
+
+#addBook:hover {
+  background-color: rgb(47, 47, 179);
+}
+
+#bookForm {
+  width: 300px;
+  height: 500px;
+  position: absolute;
+  left: 40%;
+  background-color: lightBlue;
+  border-radius: 5px;
+  display: none;
+  z-index: 1;
+}
+
+#formCon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+}
+#readCon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.radio {
+  margin-left: -50px;
+}
+
+#block {
+  height: 100%;
+  width: 100%;
+  background-color: lightslategray;
+  opacity: 20%;
+  position: absolute;
+  margin-top: -100px;
+  display: none;
+}
