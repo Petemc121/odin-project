@@ -128,6 +128,105 @@ function appendBook(i) {
     read.classList.add('inputs');
     read.textContent = "Read: " + myLibrary[i].read;
 
+    readBlock = document.createElement('div');
+    readBlock.style.margin = "10px";
+
+
+    readCon = document.createElement('div');
+    readCon.classList.add('readCon');
+
+    yesLabel = document.createElement('label');
+    yesLabel.setAttribute('for', 'yes');
+    yesLabel.textContent ="Yes"
+
+    status = read.textContent;
+
+    yes = document.createElement('input');
+    yes.setAttribute('type', 'radio');
+    yes.setAttribute('name', 'read');
+    yes.value = "yes";
+    yes.classList.add('bookRadio');
+    yes.addEventListener('click', () =>
+    {
+       status = 'yes';
+    })
+
+    noLabel = document.createElement('label');
+    noLabel.setAttribute('for', 'No');
+    noLabel.textContent ="No"
+
+
+    no = document.createElement('input');
+    no.setAttribute('type', 'radio');
+    no.setAttribute('name', 'read');
+    no.value = "no";
+    no.classList.add('bookRadio');
+    no.addEventListener('click', () =>
+    {
+        status = 'no';
+    })
+
+    readBlock.appendChild(readCon);
+    readCon.appendChild(yesLabel);
+    readCon.appendChild(yes);
+    readCon.appendChild(noLabel);
+    readCon.appendChild(no);
+    readBlock.style.display = "none";
+
+    ccblock = document.createElement('div');
+    ccblock.style.margin = "10px";
+    ccblock.style.display = "none";
+
+
+    ccCon = document.createElement('div');
+    ccCon.classList.add('readCon');
+
+ 
+    confirm = document.createElement('button');
+    confirm.classList.add('changes');
+    confirm.textContent = "Confirm";
+    
+    confirm.addEventListener('click', () =>
+    {
+        myLibrary.read = status;
+        read.textContent = myLibrary.read;
+        read.style.display = "block";
+        readBlock.style.display = "none";
+        changeRead.style.display = "block";
+        ccblock.style.display = "none";
+
+    })
+    ccCon.appendChild(confirm)
+
+    cancel = document.createElement('button');
+    cancel.classList.add('changes');
+    cancel.textContent = "Cancel";
+    cancel.style.marginLeft = "10px";
+    ccCon.appendChild(cancel)
+    cancel.addEventListener('click', () =>
+    {
+        read.style.display = "block";
+        readBlock.style.display = "none";
+        changeRead.style.display = "block";
+        ccblock.style.display = "none";
+
+    })
+    ccCon.appendChild(cancel)
+    ccblock.appendChild(ccCon);
+
+    changeRead = document.createElement('button');
+    changeRead.classList.add('changes');
+    changeRead.textContent = "Change";
+    changeRead.addEventListener('click', () =>
+    {
+        read.style.display = "none";
+        readBlock.style.display = "block";
+        changeRead.style.display = "none";
+        ccblock.style.display = "block";
+
+
+    })
+
     edition = document.createElement('p');
     edition.classList.add('bookEdition');
     edition.classList.add('inputs');
@@ -137,6 +236,9 @@ function appendBook(i) {
     book.appendChild(author);
     book.appendChild(pages);
     book.appendChild(read);
+    book.appendChild(readBlock);
+    book.appendChild(changeRead);
+    book.appendChild(ccblock);
     book.appendChild(edition);
     book.appendChild(deleteButton);
 
