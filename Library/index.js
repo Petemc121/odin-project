@@ -5,7 +5,6 @@ block = document.getElementById('block');
 bookForm = document.getElementById('bookForm');
 radio = document.getElementsByClassName('radio');
 bookContain = document.getElementById('bookContain');
-bookNo = 0;
 
 
 let myLibrary = [];
@@ -29,8 +28,6 @@ function addBookToLibrary() {
   let book = new Book(...bookProperties);
 
     myLibrary.push(book)
-    console.log(book);
-    console.log(bookProperties);
     return book;
 
     
@@ -71,11 +68,18 @@ block.addEventListener('click', () => {
 addConfirm.addEventListener('click', () => 
 {
     
+
+
     addBookToLibrary();
-    appendBook();
+
+    bookContain.innerHTML = "";
+
+    for (var i = 0; i < myLibrary.length; i++)
+    {
+    appendBook(i);
+    }
     block.click();
 
-   
 
 })
 
@@ -86,46 +90,48 @@ radio[i].addEventListener('click', () => {
 })
 }
 
-function appendBook() {
+function appendBook(i) {
     deleteButton = document.createElement('button');
     deleteButton.classList.add('deleteButtons');
     deleteButton.textContent = "Delete";
-    deleteButton.setAttribute('data-book',"" + bookNo);
-   
+    deleteButton.setAttribute('data-book',"" + i);
+    deleteButton.setAttribute('id',"delete" + i); 
+    deleteButton.addEventListener('click', function() {
+        this.parentNode.remove();
+        myLibrary.splice(i-1,1);
+        console.log(myLibrary);
+    })
 
     book = document.createElement('div');
     book.classList.add('books');
-    book.setAttribute('id', 'book' + bookNo);
-    book.setAttribute('data-book',"" + bookNo);
+    book.setAttribute('id', 'book' + i);
+    book.setAttribute('data-book',"" + i);
 
     title = document.createElement('p');
     title.classList.add('bookTitle');
     title.classList.add('inputs');
-    title.textContent = "Title: " + myLibrary[bookNo].title;
+    title.textContent = "Title: " + myLibrary[i].title;
    
 
     author = document.createElement('p');
     author.classList.add('bookAuthor');
     author.classList.add('inputs');
-    author.textContent = "Author: " + myLibrary[bookNo].author;
+    author.textContent = "Author: " + myLibrary[i].author;
 
     pages = document.createElement('p');
     pages.classList.add('bookPages');
     pages.classList.add('inputs');
-    pages.textContent = "Pages: " + myLibrary[bookNo].pages;
+    pages.textContent = "Pages: " + myLibrary[i].pages;
 
     read = document.createElement('p');
     read.classList.add('bookRead');
     read.classList.add('inputs');
-    read.textContent = "Read: " + myLibrary[bookNo].read;
+    read.textContent = "Read: " + myLibrary[i].read;
 
     edition = document.createElement('p');
     edition.classList.add('bookEdition');
     edition.classList.add('inputs');
-    edition.textContent = "Edition: " + myLibrary[bookNo].edition;
-
-    bookNo++
-
+    edition.textContent = "Edition: " + myLibrary[i].edition;
 
     book.appendChild(title);
     book.appendChild(author);
@@ -136,17 +142,10 @@ function appendBook() {
 
     bookContain.appendChild(book);
 
-    deleteButton.addEventListener('click', () =>
-    {
-        console.log(deleteButton.dataset.book);
-       parentBook = document.getElementById("book" + deleteButton.dataset.book);
-       parentBook.parentNode.removeChild(parentBook);
-       myLibrary.splice(bookNo, 1);
-       bookNo--;
-    })
+   
+    
+   
 }
 
 
-
-    
 
