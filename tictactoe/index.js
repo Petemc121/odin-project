@@ -8,49 +8,62 @@ const playerO = playerFactory('O');
 
 const Status = (() => {
     const container = document.getElementById('status');
-    const xIsNext = true;
+    let xIsNext = true;
     const message = () => {
         if (xIsNext)
         {
+           console.log(xIsNext)
            return container.textContent = `It's player ${playerX.player}'s turn.`
         } else
         {
+           console.log(xIsNext)
            return container.textContent = `It's player ${playerO.player}'s turn.`
         }
+
     };
+    const whosNext = (square) => {
+        if (square.textContent == "")
+        {
+            if (xIsNext)
+            {
+            square.textContent = playerX.player
+            xIsNext = false;
+            message();
+            } else
+            {
+            square.textContent = playerO.player
+            xIsNext = true;
+            message();
+            }
+        }
+    }
 
     return  {
         container, 
         xIsNext,
-        message: message()};
+        message,
+        whosNext
+    };
 })();
 
 
 const gameBoard = (() => {
     const board = document.getElementById('board');
+    const boardArray = [[1,2,3],[4,5,6],[7,8,9]];
     const buildBoard = () => {
-        for (let i = 0; i < 3; i++)
+        for (let i = 0; i < boardArray.length; i++)
         {   
             let row = document.createElement('div');
             row.id = `row ${i}`;
             row.classList.add('row');
             board.appendChild(row);
-            for (let j = 0; j < 3; j++)
+            for (let j = 0; j < boardArray[i].length; j++)
             {
             let square = document.createElement('div');    
             square.classList.add('square');
+            square.id = boardArray[i][j];
             square.addEventListener('click', (e) => {
-                if (Status.xIsNext)
-                {
-                 square.textContent = playerX.player
-                Status.xIsNext = false;
-                } else
-                {
-                 square.textContent = playerO.player
-                 Status.xIsNext = true;
-                }
-
-
+                Status.whosNext(square);
             })
             row.appendChild(square);
             }
@@ -64,8 +77,6 @@ const gameBoard = (() => {
 
     
 })();
-
-
 
 console.log(Status.xIsNext)
 
