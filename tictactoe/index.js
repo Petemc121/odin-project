@@ -22,6 +22,8 @@ const Status = (() => {
 
     };
     const whosNext = (square) => {
+        if(!winner(square))
+        {
         if (square.textContent == "")
         {
             if (xIsNext)
@@ -34,6 +36,19 @@ const Status = (() => {
             square.textContent = playerO.player
             xIsNext = true;
             message();
+            }
+        }
+        }
+    }
+
+    const winner = (square) => {
+      
+
+        for (let i = 0; i < gameBoard.boardArray.length; i++)
+        {
+            for (let j = 0; j < gameBoard.boardArray[i].length; j++)
+            {
+              
             }
         }
     }
@@ -72,7 +87,9 @@ const gameBoard = (() => {
     
 
     return {
-        buildBoard: buildBoard()
+        buildBoard: buildBoard(),
+        boardArray
+
     };
 
     
