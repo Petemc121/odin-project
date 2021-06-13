@@ -12,18 +12,20 @@ const Status = (() => {
     const message = () => {
         if (xIsNext)
         {
-           console.log(xIsNext)
+          
            return container.textContent = `It's player ${playerX.player}'s turn.`
         } else
         {
-           console.log(xIsNext)
+          
            return container.textContent = `It's player ${playerO.player}'s turn.`
         }
 
     };
     const whosNext = (square) => {
-        if(!winner(square))
-        {
+
+       
+        const block = document.querySelector('#block');
+
         if (square.textContent == "")
         {
             if (xIsNext)
@@ -38,32 +40,89 @@ const Status = (() => {
             message();
             }
         }
+        
+        if (winner())
+        {
+            block.style.display = 'block';
+           return
+           
         }
+
+    
+        
+       
+
+
     }
 
-    const winner = (square) => {
+    const winner = () => {
       
+        const winningPatterns = 
+        [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
+        const squares = document.getElementsByClassName('square');
+        let xPositions = [];
+        let oPositions = [];
+        squaresFilled = 0;
 
-        for (let i = 0; i < gameBoard.boardArray.length; i++)
+        for (let i = 0; i < squares.length; i++)
         {
-            for (let j = 0; j < gameBoard.boardArray[i].length; j++)
+            if (squares[i].textContent == "X")
             {
-              
+                xPositions.push(parseInt(squares[i].id));
+                squaresFilled++;
+            } else 
+            if (squares[i].textContent == "O")
+            {
+                oPositions.push(parseInt(squares[i].id));
+                squaresFilled++;
             }
         }
+
+
+     
+    
+        for (let i = 0; i < winningPatterns.length; i++)
+        {
+        
+
+           if (xPositions.includes(winningPatterns[i][0]) == true && xPositions.includes(winningPatterns[i][1]) == true && xPositions.includes(winningPatterns[i][2]) == true)
+           {
+                container.textContent = `${playerX.player} wins.`
+                return true;
+           }
+
+           if (oPositions.includes(winningPatterns[i][0]) == true && oPositions.includes(winningPatterns[i][1]) == true && oPositions.includes(winningPatterns[i][2]) == true)
+           {
+                container.textContent = `${playerO.player} wins.`
+                return true;
+           }
+           
+        }
+
+        if (squaresFilled == 9)
+        {
+            container.textContent = "Draw!"
+            block.style.display = "block";
+            return false
+        }
+
+           return false;
+
     }
 
     return  {
         container, 
         xIsNext,
         message,
-        whosNext
+        whosNext,
+        winner
     };
 })();
 
 
 const gameBoard = (() => {
     const board = document.getElementById('board');
+    const reset = document.querySelector('#reset');
     const boardArray = [[1,2,3],[4,5,6],[7,8,9]];
     const buildBoard = () => {
         for (let i = 0; i < boardArray.length; i++)
@@ -77,13 +136,16 @@ const gameBoard = (() => {
             let square = document.createElement('div');    
             square.classList.add('square');
             square.id = boardArray[i][j];
-            square.addEventListener('click', (e) => {
-                Status.whosNext(square);
-            })
+            square.addEventListener('click', () => {
+                Status.whosNext(square)})
             row.appendChild(square);
             }
         }
     }
+
+    reset.addEventListener('click', () => {
+        window.location.reload();
+    })
     
 
     return {
@@ -94,6 +156,4 @@ const gameBoard = (() => {
 
     
 })();
-
-console.log(Status.xIsNext)
 
